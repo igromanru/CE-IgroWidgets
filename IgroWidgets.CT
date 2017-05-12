@@ -2,7 +2,7 @@
 <CheatTable CheatEngineTableVersion="24">
   <CheatEntries>
     <CheatEntry>
-      <ID>0</ID>
+      <ID>1337</ID>
       <Description>"Initialize"</Description>
       <Options moHideChildren="1"/>
       <LastState/>
@@ -85,6 +85,10 @@ function IgroWidgets:floatToByteArray(number)
   end
 
   return result
+end
+
+function IgroWidgets:decToHex(number, length)
+  return self:toHexLegth(number,length)
 end
 
 function IgroWidgets:decToByteArray(number, length)
@@ -235,10 +239,14 @@ end
           <VariableType>Auto Assembler Script</VariableType>
           <AssemblerScript>[ENABLE]
 {$lua}
+TestName = "toHexLegth"
 
+if(igro:toHexLegth(22) ~= "16") then
+  message("22 should be '16'")
+elseif(igro:toHexLegth(12,4) ~= "0000000C") then
+  message("12 with legth 4 should be 0000000C")
+end
 
- 
- 
 [DISABLE]
 </AssemblerScript>
         </CheatEntry>
@@ -249,10 +257,12 @@ end
           <VariableType>Auto Assembler Script</VariableType>
           <AssemblerScript>[ENABLE]
 {$lua}
+TestName = "floatToHex"
 
+if(igro:floatToHex(9.99) == "411fd70a") then
+  message("9.99 should be 411fd70a")
+end
 
- 
- 
 [DISABLE]
 </AssemblerScript>
         </CheatEntry>
@@ -263,10 +273,12 @@ end
           <VariableType>Auto Assembler Script</VariableType>
           <AssemblerScript>[ENABLE]
 {$lua}
+TestName = "floatToDecimal"
 
+if(igro:floatToDecimal(9.99) ~= 1092605706 ) then
+  message("9.99 should be 1092605706")
+end
 
- 
- 
 [DISABLE]
 </AssemblerScript>
         </CheatEntry>
@@ -277,24 +289,30 @@ end
           <VariableType>Auto Assembler Script</VariableType>
           <AssemblerScript>[ENABLE]
 {$lua}
+TestName = "floatToByteArray"
 
+if(igro:floatToByteArray(9.99) ~= "0A D7 1F 41") then
+  message("9.99 should be '0A D7 1F 41'")
+end
 
- 
- 
 [DISABLE]
 </AssemblerScript>
         </CheatEntry>
         <CheatEntry>
-          <ID>7</ID>
-          <Description>"floatToByteArray Test"</Description>
+          <ID>18</ID>
+          <Description>"decToHex Test"</Description>
           <LastState/>
           <VariableType>Auto Assembler Script</VariableType>
           <AssemblerScript>[ENABLE]
 {$lua}
+TestName = "decToHex"
 
+if(igro:decToHex(9) ~= "09") then
+  message("9 should be '09'")
+elseif(igro:decToHex(9,4) ~= "00000009") then
+  message("9 should be '00000009'")
+end
 
- 
- 
 [DISABLE]
 </AssemblerScript>
         </CheatEntry>
@@ -305,10 +323,14 @@ end
           <VariableType>Auto Assembler Script</VariableType>
           <AssemblerScript>[ENABLE]
 {$lua}
+TestName = "decToByteArray"
 
+if(igro:decToByteArray(9) ~= "09") then
+  message("9 should be '09'")
+elseif(igro:decToByteArray(9,4) ~= "09 00 00 00") then
+  message("9 should be '09 00 00 00'")
+end
 
- 
- 
 [DISABLE]
 </AssemblerScript>
         </CheatEntry>
@@ -319,10 +341,12 @@ end
           <VariableType>Auto Assembler Script</VariableType>
           <AssemblerScript>[ENABLE]
 {$lua}
+TestName = "hexToDecimal"
 
+if(igro:hexToDecimal("4D8") ~= 1240) then
+  message("'4D8' should be 1240")
+end
 
- 
- 
 [DISABLE]
 </AssemblerScript>
         </CheatEntry>
@@ -333,10 +357,12 @@ end
           <VariableType>Auto Assembler Script</VariableType>
           <AssemblerScript>[ENABLE]
 {$lua}
+TestName = "hexToFloat"
 
+if(igro:hexToFloat("40900000") ~= 4.5) then
+  message("'40900000' should be 4.5")
+end
 
- 
- 
 [DISABLE]
 </AssemblerScript>
         </CheatEntry>
@@ -347,10 +373,12 @@ end
           <VariableType>Auto Assembler Script</VariableType>
           <AssemblerScript>[ENABLE]
 {$lua}
+TestName = "hexToByteArray"
 
+if(igro:hexToByteArray("40900000") ~= "00 00 90 40") then
+  message("'40900000' should be '00 00 90 40'")
+end
 
- 
- 
 [DISABLE]
 </AssemblerScript>
         </CheatEntry>
@@ -361,10 +389,12 @@ end
           <VariableType>Auto Assembler Script</VariableType>
           <AssemblerScript>[ENABLE]
 {$lua}
+TestName = "byteArrayToHex"
 
+if(igro:byteArrayToHex("00 00 90 40") ~= "40900000") then
+  message("'00 00 90 40' should be '40900000'")
+end
 
- 
- 
 [DISABLE]
 </AssemblerScript>
         </CheatEntry>
@@ -375,10 +405,12 @@ end
           <VariableType>Auto Assembler Script</VariableType>
           <AssemblerScript>[ENABLE]
 {$lua}
+TestName = "byteArrayToDecimal"
 
+if(igro:byteArrayToDecimal("00 00 90 40") ~= 1083179008) then
+  message("'00 00 90 40' should be 1083179008")
+end
 
- 
- 
 [DISABLE]
 </AssemblerScript>
         </CheatEntry>
@@ -389,10 +421,12 @@ end
           <VariableType>Auto Assembler Script</VariableType>
           <AssemblerScript>[ENABLE]
 {$lua}
+TestName = "byteArrayToDecimal"
 
+if(igro:byteArrayToFloat("00 00 90 40") ~= 4.5) then
+  message("'00 00 90 40' should be 4.5")
+end
 
- 
- 
 [DISABLE]
 </AssemblerScript>
         </CheatEntry>
@@ -403,9 +437,15 @@ end
           <VariableType>Auto Assembler Script</VariableType>
           <AssemblerScript>[ENABLE]
 {$lua}
+TestName = "getRecordById"
 
+local record = igro:getRecordById(01337)
+if(record == nil) then
+  message("'Id 01337 wasn't found")
+elseif(record.Description ~= "Initialize") then
+  message("'Found wrong record with ID 01337")
+end
 
- 
  
 [DISABLE]
 </AssemblerScript>
