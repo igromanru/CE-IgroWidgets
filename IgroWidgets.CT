@@ -21,12 +21,16 @@ function IgroWidgets:new()
   return self
 end
 
+function IgroWidgets:stringTrim(s)
+  return s:gsub("^%s*(.-)%s*$", "%1")
+end
+
 function IgroWidgets:isNotEmpty(s)
-  return s ~= nil and s ~= ''
+  return s ~= nil and self:stringTrim(s) ~= ''
 end
 
 function IgroWidgets:isEmpty(s)
-  return s == nil or s == ''
+  return s == nil or self:stringTrim(s) == ''
 end
 
 function IgroWidgets:toHexLegth(number, length)
@@ -158,11 +162,36 @@ igro = IgroWidgets:new()
  END Igromanru's widgets class
 ]]--
 
+TestName = ""
+-- Tests Part
+function message(msg)
+  showMessage(TestName.." Error: "..msg)
+end
+
 
 [DISABLE]
 
 </AssemblerScript>
       <CheatEntries>
+        <CheatEntry>
+          <ID>16</ID>
+          <Description>"stringTrim Test"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+{$lua}
+TestName = "stringTrim"
+
+if(igro:stringTrim(" ") ~=  "") then
+  message("' ' should be ''")
+elseif(igro:stringTrim(" 123 ") ~= "123") then
+  message("' 123 ' should '123'")
+end
+
+ 
+[DISABLE]
+</AssemblerScript>
+        </CheatEntry>
         <CheatEntry>
           <ID>1</ID>
           <Description>"isNotEmpty Test"</Description>
@@ -170,10 +199,14 @@ igro = IgroWidgets:new()
           <VariableType>Auto Assembler Script</VariableType>
           <AssemblerScript>[ENABLE]
 {$lua}
+TestName = "isNotEmpty"
 
+if(igro:isNotEmpty(" ")) then
+  message("' ' should be empty")
+elseif(not igro:isNotEmpty("123")) then
+  message("'123' should not be empty")
+end
 
- 
- 
 [DISABLE]
 </AssemblerScript>
         </CheatEntry>
@@ -184,9 +217,13 @@ igro = IgroWidgets:new()
           <VariableType>Auto Assembler Script</VariableType>
           <AssemblerScript>[ENABLE]
 {$lua}
+TestName = "isEmpty"
 
-
- 
+if(not igro:isEmpty(" ")) then
+  message("' ' should be empty")
+elseif(igro:isEmpty("123")) then
+  message("'123' should not be empty")
+end
  
 [DISABLE]
 </AssemblerScript>
@@ -374,6 +411,32 @@ igro = IgroWidgets:new()
 </AssemblerScript>
         </CheatEntry>
       </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>17</ID>
+      <Description>"Execute All Tests"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+if syntaxcheck then return end
+
+local addresslist = getAddressList()
+local record = addresslist.getMemoryRecordByDescription("Initialize")
+record.Active = true
+for i = 0, record.Count-1 do
+  record.Child[i].Active = true
+end
+
+[DISABLE]
+{$lua}
+local addresslist = getAddressList()
+local record = addresslist.getMemoryRecordByDescription("Initialize")
+record.Active = false
+for i = 0, record.Count-1 do
+  record.Child[i].Active = false
+end
+</AssemblerScript>
     </CheatEntry>
   </CheatEntries>
   <UserdefinedSymbols/>
