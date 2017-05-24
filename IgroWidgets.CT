@@ -9,9 +9,7 @@
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
 {$lua}
---[[
- START Igromanru's widgets class
-]]--
+--[[START Igromanru's widgets class]]--
 -- Class for my UDF's
 IgroWidgets = {}
 
@@ -162,9 +160,7 @@ end
 
 -- Creating an instance of IgroWidgets
 igro = IgroWidgets:new()
---[[
- END Igromanru's widgets class
-]]--
+--[[END Igromanru's widgets class]]--
 
 TestName = ""
 -- Tests Part
