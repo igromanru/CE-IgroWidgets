@@ -33,6 +33,10 @@ function IgroWidgets:isEmpty(s)
   return s == nil or self:stringTrim(s) == ''
 end
 
+function IgroWidgets:toHex(number)
+  return string.format("%X",number)
+end
+
 function IgroWidgets:toHexLegth(number, length)
   if length == nil then length = 1 end
   length = length * 2
@@ -229,6 +233,24 @@ elseif(igro:isEmpty("123")) then
   message("'123' should not be empty")
 end
  
+[DISABLE]
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1338</ID>
+          <Description>"toHex Test"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+{$lua}
+TestName = "toHexLegth"
+
+if(igro:toHex(22) ~= "16") then
+  message("22d should be '16'h")
+elseif(igro:toHex(22312) ~= "5728") then
+  message("22312d should be '5728'h")
+end
+
 [DISABLE]
 </AssemblerScript>
         </CheatEntry>
