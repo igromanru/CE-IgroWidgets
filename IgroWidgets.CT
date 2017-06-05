@@ -16,6 +16,7 @@ IgroWidgets = {}
 function IgroWidgets:new()
   setmetatable({}, self)
   self.__index = self
+  self.addressList = getAddressList()
   return self
 end
 
@@ -159,7 +160,15 @@ function IgroWidgets:byteArrayToFloat(byteArray)
 end
 
 function IgroWidgets:getRecordById(id)
-  return getAddressList().getMemoryRecordByID(id)
+  return self.addressList.getMemoryRecordByID(id)
+end
+
+function IgroWidgets:getRecordByDescription(description)
+  return self.addressList.getMemoryRecordByDescription(description)
+end
+
+function IgroWidgets:getRecord(index)
+  return self.addressList.getMemoryRecord(index)
 end
 
 -- Creating an instance of IgroWidgets
@@ -457,11 +466,51 @@ end
 {$lua}
 TestName = "getRecordById"
 
-local record = igro:getRecordById(01337)
+local record = igro:getRecordById(1337)
 if(record == nil) then
-  message("'Id 01337 wasn't found")
+  message("'Id 1337 wasn't found")
 elseif(record.Description ~= "Initialize") then
-  message("'Found wrong record with ID 01337")
+  message("'Found wrong record with ID 1337")
+end
+
+ 
+[DISABLE]
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1339</ID>
+          <Description>"getRecordByDescription Test"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+{$lua}
+TestName = "getRecordByDescription"
+
+local record = igro:getRecordByDescription("Initialize")
+if(record == nil) then
+  message("Description 'Initialize' wasn't found")
+elseif(record.Id ~= 1337) then
+  message("'Found wrong record with Description 'Initialize'")
+end
+
+ 
+[DISABLE]
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1340</ID>
+          <Description>"getRecord Test"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+{$lua}
+TestName = "getRecord"
+
+local record = igro:getRecord(0)
+if(record == nil) then
+  message("Record with index '0' wasn't found")
+elseif(record.Id ~= 1337) then
+  message("'Found wrong record with index '0'")
 end
 
  
