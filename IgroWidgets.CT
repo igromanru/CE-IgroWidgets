@@ -171,6 +171,58 @@ function IgroWidgets:getRecord(index)
   return self.addressList.getMemoryRecord(index)
 end
 
+function IgroWidgets:enableRecordById(id)
+  local function enableRecord(thread, id)
+    local record = self:getRecordById(id)
+	if(record ~= nil) then
+	  sleep(500)
+	  record.Active = true
+	else
+	  print("Record with ID "..id.." doesn't exists")
+	end
+  end
+  createNativeThread(enableRecord, id)
+end
+
+function IgroWidgets:enableByDescription(description)
+  local function enableRecord(thread, description)
+    local record = self:getRecordByDescription(description)
+	if(record ~= nil) then
+	  sleep(500)
+	  record.Active = true
+	else
+	  print("Record with Description "..description.." doesn't exists")
+	end
+  end
+  createNativeThread(enableRecord, description)
+end
+
+function IgroWidgets:disableRecordById(id)
+  local function disableRecord(thread, id)
+    local record = self:getRecordById(id)
+	if(record ~= nil) then
+	  sleep(500)
+	  record.Active = false
+	else
+	  print("Record with ID "..id.." doesn't exists")
+	end
+  end
+  createNativeThread(disableRecord, id)
+end
+
+function IgroWidgets:disableByDescription(description)
+  local function disableRecord(thread, description)
+    local record = self:getRecordByDescription(description)
+	if(record ~= nil) then
+      sleep(500)
+	  record.Active = false
+	else
+	  print("Record with Description "..description.." doesn't exists")
+	end
+  end
+  createNativeThread(disableRecord, description)
+end
+
 -- Creating an instance of IgroWidgets
 igro = IgroWidgets:new()
 --[[END Igromanru's widgets class]]--
@@ -178,7 +230,7 @@ igro = IgroWidgets:new()
 TestName = ""
 -- Tests Part
 function message(msg)
-  showMessage(TestName.." Error: "..msg)
+  error(TestName.." Error: "..msg)
 end
 
 
@@ -516,6 +568,114 @@ end
  
 [DISABLE]
 </AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1343</ID>
+          <Description>"enableRecordById Test"</Description>
+          <Options moHideChildren="1"/>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+{$lua}
+if syntacheck then return end
+TestName = "enableRecordById"
+
+igro:enableRecordById(1344)
+
+[DISABLE]
+{$lua}
+if syntacheck then return end
+igro:disableRecordById(1344)
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>1344</ID>
+              <Description>"Record to enable"</Description>
+              <LastState Value="" RealAddress="00000000"/>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1347</ID>
+          <Description>"enableByDescription Test"</Description>
+          <Options moHideChildren="1"/>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+{$lua}
+if syntacheck then return end
+TestName = "enableByDescription"
+
+igro:enableByDescription("Record to enable by description")
+
+[DISABLE]
+{$lua}
+if syntacheck then return end
+igro:disableByDescription("Record to enable by description")
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>1348</ID>
+              <Description>"Record to enable by description"</Description>
+              <LastState Value="" RealAddress="00000000"/>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1341</ID>
+          <Description>"disableRecordById Test"</Description>
+          <Options moHideChildren="1"/>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+{$lua}
+if syntacheck then return end
+TestName = "disableRecordById"
+
+igro:disableRecordById(1342)
+
+[DISABLE]
+{$lua}
+if syntacheck then return end
+igro:enableRecordById(1342)
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>1342</ID>
+              <Description>"Record to disable"</Description>
+              <LastState Value="" Activated="1" RealAddress="00000000"/>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1345</ID>
+          <Description>"disableByDescription Test"</Description>
+          <Options moHideChildren="1"/>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+{$lua}
+if syntacheck then return end
+TestName = "disableByDescription"
+
+igro:disableByDescription("Record to disable by description")
+
+[DISABLE]
+{$lua}
+if syntacheck then return end
+igro:enableByDescription("Record to disable by description")
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>1346</ID>
+              <Description>"Record to disable by description"</Description>
+              <LastState Value="" Activated="1" RealAddress="00000000"/>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+          </CheatEntries>
         </CheatEntry>
       </CheatEntries>
     </CheatEntry>
